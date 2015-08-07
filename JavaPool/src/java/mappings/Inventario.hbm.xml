@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="models.ClInventario" table="Inventario">
+      <id name="IdInventario" column="IdInventario">
+          <generator class="identity"/>
+      </id>
+      <property name="CodigoI" column="CodigoI" type="string"/>
+      <property name="CantidadI" column="CantidadI" type="int"/>
+      <property name="NombreI" column="NombreI" type="string"/>
+      <property name="ValorI" column="ValorI" type="double"/>
+  </class>
+</hibernate-mapping>
