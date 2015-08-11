@@ -8,6 +8,6 @@
       <property name="CodigoI" column="CodigoI" type="string"/>
       <property name="CantidadI" column="CantidadI" type="int"/>
       <property name="NombreI" column="NombreI" type="string"/>
-      <property name="ValorI" column="ValorI" type="double"/>
+      <property name="ValorI" column="ValorI" type="int"/>
   </class>
 </hibernate-mapping>

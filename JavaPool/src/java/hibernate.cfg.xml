@@ -10,8 +10,5 @@
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.hbm2ddl.auto">create-drop</property>
     <mapping class="models.ClInventario" resource="mappings/Inventario.hbm.xml"/>
-    <mapping/>
-    <mapping/>
-    <mapping/>
   </session-factory>
 </hibernate-configuration>

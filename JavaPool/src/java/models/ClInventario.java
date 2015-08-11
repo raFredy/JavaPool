@@ -8,18 +8,19 @@ package models;
 /**
  *
  * @author fredyalexander
+ * 602
  */
 public class ClInventario {
     private int IdInventario;
     private String CodigoI;
     private int CantidadI;
     private String NombreI;
-    private double ValorI;
+    private int ValorI;
 
     public ClInventario() {
     }
 
-    public ClInventario(String CodigoI, int CantidadI, String NombreI, double ValorI) {
+    public ClInventario(String CodigoI, int CantidadI, String NombreI, int ValorI) {
         this.CodigoI = CodigoI;
         this.CantidadI = CantidadI;
         this.NombreI = NombreI;
@@ -71,14 +72,14 @@ public class ClInventario {
     /**
      * @return the ValorI
      */
-    public double getValorI() {
+    public int getValorI() {
         return ValorI;
     }
 
     /**
      * @param ValorI the ValorI to set
      */
-    public void setValorI(double ValorI) {
+    public void setValorI(int ValorI) {
         this.ValorI = ValorI;
     }
 

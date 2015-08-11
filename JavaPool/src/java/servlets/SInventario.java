@@ -1,4 +1,4 @@
-/*
+ /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -28,7 +28,7 @@ public class SInventario extends HttpServlet {
     private void mtdInventario(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             PrintWriter out = response.getWriter();
-            ClInventario objInventario = new ClInventario(request.getParameter("codigo"),Integer.parseInt(request.getParameter("cantidad")), request.getParameter("nombre"),Double.parseDouble(request.getParameter("valor")));
+            ClInventario objInventario = new ClInventario(request.getParameter("codigo"),Integer.parseInt(request.getParameter("cantidad")), request.getParameter("nombre"),Integer.parseInt(request.getParameter("valor")));
             
             Session sesion = HibernateUtil.getSessionFactory().openSession();
             Transaction tx = sesion.beginTransaction();
@@ -38,8 +38,10 @@ public class SInventario extends HttpServlet {
             sh.setAttribute("Inventario", objInventario);
             tx.commit();
             sesion.close();
-            response.sendRedirect("index.html");
-            
+            response.sendRedirect("RegistroInventario.html");
+            //<script type="text/javascript">
+            //alert("Hola Mundo!");
+            //</script>
     }
     
 
