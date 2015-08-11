@@ -5,12 +5,14 @@
  */
 package models;
 
+import java.io.Serializable;
+
 /**
  *
  * @author fredyalexander
  * 602
  */
-public class ClInventario {
+public class ClInventario implements Serializable{
     private int IdInventario;
     private String CodigoI;
     private int CantidadI;
@@ -26,7 +28,7 @@ public class ClInventario {
         this.NombreI = NombreI;
         this.ValorI = ValorI;
     }
-
+    
     /**
      * @return the IdInventario
      */

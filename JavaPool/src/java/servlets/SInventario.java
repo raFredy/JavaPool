@@ -7,14 +7,17 @@ package servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.swing.JOptionPane;
 import models.ClInventario;
 import models.HibernateUtil;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -39,12 +42,22 @@ public class SInventario extends HttpServlet {
             tx.commit();
             sesion.close();
             response.sendRedirect("RegistroInventario.html");
-            //<script type="text/javascript">
-            //alert("Hola Mundo!");
-            //</script>
+            //JOptionPane.showMessageDialog(null, "Registrado");
     }
     
-
+     private void mtdListar(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
+        
+        Session sesion = HibernateUtil.getSessionFactory().openSession();
+        Query sql=sesion.createQuery("select c from ClInventario c ");
+        ArrayList<ClInventario> inventario =  (ArrayList) sql.list();
+        request.setAttribute("Inventario", inventario);
+        sesion.close();
+//out.println(inventario.size());        
+        request.getRequestDispatcher("verPrducto.jsp").forward(request,response);
+    }
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -58,8 +71,10 @@ public class SInventario extends HttpServlet {
             throws ServletException, IOException {
         
         if (request.getParameter("i").equalsIgnoreCase("mtdInventario")) {
-            mtdInventario(request,response);
-            
+            mtdInventario(request,response);  
+        }
+        else if(request.getParameter("i").equalsIgnoreCase("verLibros")){
+            mtdListar(request,response);
         }
     }
     
