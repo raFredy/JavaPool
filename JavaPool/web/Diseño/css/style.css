@@ -607,7 +607,8 @@ body{
 	font-size:0.85em;
 	color:#FFF;
 	padding:5px 0;
-	font-family :verdana, arial, helvetica, helve, sans-serif;
+	font-family :fontleroybrownregular;
+        font-size: 40px;
 }
 .company_address p span{
 	text-decoration:underline;

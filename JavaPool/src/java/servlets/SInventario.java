@@ -41,7 +41,8 @@ public class SInventario extends HttpServlet {
             sh.setAttribute("Inventario", objInventario);
             tx.commit();
             sesion.close();
-            response.sendRedirect("RegistroInventario.html");
+            //response.sendRedirect("RegistroInventario.html");
+            response.sendRedirect("SInventario?i=mtdListar");
             //JOptionPane.showMessageDialog(null, "Registrado");
     }
     
@@ -55,7 +56,7 @@ public class SInventario extends HttpServlet {
         request.setAttribute("Inventario", inventario);
         sesion.close();
 //out.println(inventario.size());        
-        request.getRequestDispatcher("verPrducto.jsp").forward(request,response);
+        request.getRequestDispatcher("RegistroInventario.jsp").forward(request,response);
     }
     
     /**
@@ -73,7 +74,7 @@ public class SInventario extends HttpServlet {
         if (request.getParameter("i").equalsIgnoreCase("mtdInventario")) {
             mtdInventario(request,response);  
         }
-        else if(request.getParameter("i").equalsIgnoreCase("verLibros")){
+        else if(request.getParameter("i").equalsIgnoreCase("mtdListar")){
             mtdListar(request,response);
         }
     }

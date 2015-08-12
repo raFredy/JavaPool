@@ -9,8 +9,14 @@
     <body>
          <h1>Bebidas!</h1>
         <table>
+            <tr>
+                <td>Codigo</td>
+                <td>Cantidad</td>
+                <td>Nombre</td>
+                <td>Valor</td>
+            </tr>
         <c:forEach items="${Inventario}" var="inv">
-            <tr><td>${inv.codigoI}</td><td>${inv.cantidadI}</td><td>${inv.nombreI}</td><td>${inv.valorI}</td></tr>
+            <tr><td>${inv.codigoI}</td><td> ${inv.cantidadI}</td><td>${inv.nombreI}</td><td>${inv.valorI}</td></tr>
         </c:forEach>
         </table>
     </body>
