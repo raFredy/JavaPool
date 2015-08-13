@@ -212,6 +212,7 @@ body{
 	display: block;
 	float:left;
 	margin: 1% 0 1% 1.6%;
+        font-family: fontleroybrownregular;
 }
 .col_1_of_3:first-child { margin-left: 0; }
 .span_1_of_3 {
