@@ -31,19 +31,26 @@ public class SInventario extends HttpServlet {
     private void mtdInventario(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
             PrintWriter out = response.getWriter();
-            ClInventario objInventario = new ClInventario(request.getParameter("codigo"),Integer.parseInt(request.getParameter("cantidad")), request.getParameter("nombre"),Integer.parseInt(request.getParameter("valor")));
+            HttpSession session = request.getSession();
+            ClInventario objInventario;
+            
+            if (session.getAttribute("InventarioUpdate") !=null) {
+                objInventario=(ClInventario) session.getAttribute("InventarioUpdate");
+                objInventario.setCodigoI(request.getParameter("codigo"));
+                objInventario.setCantidadI(Integer.parseInt(request.getParameter("cantidad")));
+                objInventario.setNombreI(request.getParameter("nombre"));
+                objInventario.setValorI(Integer.parseInt(request.getParameter("valor")));   
+            }else
+                objInventario = new ClInventario(request.getParameter("codigo"),Integer.parseInt(request.getParameter("cantidad")), request.getParameter("nombre"),Integer.parseInt(request.getParameter("valor")));
             
             Session sesion = HibernateUtil.getSessionFactory().openSession();
             Transaction tx = sesion.beginTransaction();
-            sesion.save(objInventario);
+            sesion.saveOrUpdate(objInventario);
             
-            HttpSession sh = request.getSession();
-            sh.setAttribute("Inventario", objInventario);
+            session.setAttribute("Inventario",objInventario);
             tx.commit();
             sesion.close();
-            //response.sendRedirect("RegistroInventario.html");
             response.sendRedirect("SInventario?i=mtdListar");
-            //JOptionPane.showMessageDialog(null, "Registrado");
     }
     
      private void mtdListar(HttpServletRequest request, HttpServletResponse response)
@@ -57,6 +64,28 @@ public class SInventario extends HttpServlet {
         sesion.close();
 //out.println(inventario.size());        
         request.getRequestDispatcher("RegistroInventario.jsp").forward(request,response);
+    }
+     
+     private void mtdUpdate(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        PrintWriter out = response.getWriter();
+        
+        Session s = HibernateUtil.getSessionFactory().openSession();
+        Query q = s.createQuery("SELECT c FROM ClInventario c WHERE IdInventario=?");
+        q.setInteger(0, Integer.parseInt(request.getParameter("d")));
+        
+        ClInventario objIventario = (ClInventario) q.uniqueResult();
+        s.close();
+        
+        HttpSession sh = request.getSession();
+        sh.setAttribute("InventarioUpdate", objIventario);
+        
+        Session sesion = HibernateUtil.getSessionFactory().openSession();
+        Query sql=sesion.createQuery("select c from ClInventario c ");
+        ArrayList<ClInventario> inventario =  (ArrayList) sql.list();
+        request.setAttribute("Inventario", inventario);
+        request.getRequestDispatcher("RegistroInventario.jsp").forward(request, response);
+        
     }
     
     /**
@@ -76,6 +105,9 @@ public class SInventario extends HttpServlet {
         }
         else if(request.getParameter("i").equalsIgnoreCase("mtdListar")){
             mtdListar(request,response);
+        }
+        else if(request.getParameter("i").equalsIgnoreCase("update")){
+            mtdUpdate(request,response);
         }
     }
     
