@@ -85,7 +85,25 @@ public class SInventario extends HttpServlet {
         ArrayList<ClInventario> inventario =  (ArrayList) sql.list();
         request.setAttribute("Inventario", inventario);
         request.getRequestDispatcher("RegistroInventario.jsp").forward(request, response);
+    }
+     
+     private void mtdDelete(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+         
+        PrintWriter out = response.getWriter();
+        Session s = HibernateUtil.getSessionFactory().openSession();
+        Query q = s.createQuery("DELETE ClInventario WHERE IdInventario=?");
+        q.setInteger(0, Integer.parseInt(request.getParameter("d")));
         
+        int inventario = q.executeUpdate();
+        s.close();
+        
+        //ClInventario objIventario = (ClInventario) q.uniqueResult();
+        //s.close();
+        
+        HttpSession sh = request.getSession();
+        request.getRequestDispatcher("SInventario?i=mtdListar").forward(request, response);
+
     }
     
     /**
@@ -109,8 +127,10 @@ public class SInventario extends HttpServlet {
         else if(request.getParameter("i").equalsIgnoreCase("update")){
             mtdUpdate(request,response);
         }
+        else if(request.getParameter("i").equalsIgnoreCase("delete")){
+            mtdDelete(request,response);
+        }
     }
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

@@ -12,10 +12,14 @@
         <title>Free The Brewery  Website Template | About :: w3layouts</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 <link href="Diseño/css/style.css" rel="stylesheet" type="text/css"/>
 <link href="Diseño/css/slider.css" rel="stylesheet" type="text/css"/>
 <script src="Diseño/js/jquery.min.js" type="text/javascript"></script>
 <script src="Diseño/js/slidermodernizr.custom.js" type="text/javascript"></script>
+
+<link rel="stylesheet" type="text/css" href="DataTables/media/css/jquery.dataTables.css">
+<script src="DataTables/media/js/jquery.dataTables.js" type="text/javascript"></script>
 </head>
  <body>
    <!------ Background slider ------->
@@ -63,18 +67,30 @@
                                     <div class="col_1_of_3 contact_1_of_3">
                                         <div class="contact-form">
                                             <h3>Registro</h3>
-                                            <form action="SInventario?i=mtdInventario" method="POST">
+                                            <form action="SInventario?i=mtdInventario" method="POST" var="InventarioUpdate">
+                                                
 					    	<div>
-                                                    <span><input type="text" name="codigo" class="textbox" placeholder="Codigo Producto" required="" autofocus=""></span>
+                                                    <span><input type="text" name="codigo" class="textbox" placeholder="Codigo Producto" value="${InventarioUpdate.codigoI}" required="" autofocus=""></span>
 						</div>
         				    	<div>
-                                                    <span><input type="text" name="cantidad" class="textbox" placeholder="Cantidad Producto" required=""></span>
+                                                    <span><input type="text" name="cantidad" class="textbox" placeholder="Cantidad Producto" value="${InventarioUpdate.cantidadI}" required=""></span>
+						</div>
+                                                <!--<div>
+                                                    <span><input type="submit" value="Guardar"></span>
+						</div>-->
+					    <!--</form>-->
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col_1_of_3 contact_1_of_3">
+                                        <div class="contact-form">
+                                            <br/><br/><br/><br/><br/>
+                                            <!--<form action="SInventario?i=mtdInventario" method="POST">-->
+                                                <div>
+                                                    <span><input type="text" name="nombre" class="textbox" placeholder="Nombre Producto" value="${InventarioUpdate.nombreI}" required=""></span>
 						</div>
                                                 <div>
-                                                    <span><input type="text" name="nombre" class="textbox" placeholder="Nombre Producto" required=""></span>
-						</div>
-                                                <div>
-                                                    <span><input type="text" name="valor" class="textbox" placeholder="Valor Producto" required=""></span>
+                                                    <span><input type="text" name="valor" class="textbox" placeholder="Valor Producto" value="${InventarioUpdate.valorI}" required=""></span>
 						</div>
                                                 <div>
                                                     <span><input type="submit" value="Guardar"></span>
@@ -83,27 +99,33 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="col_1_of_3 contact_1_of_3">
+                                    <div class="">
 					<div class="company_address">
 				     	<h3>Productos</h3>
-                                        <table>
+                                        <table id="productos-grid" class="">
+                                            <thead>
                                             <tr>
-                                                <td><p>Codigo&nbsp;</p></td>
-                                                <td><p>Cantidad&nbsp;</p></td>
-                                                <td><p>Nombre&nbsp;</p></td>
-                                                <td><p>Valor&nbsp;</p></td>
+                                                <td>Codigo</td>
+                                                <td>Cantidad</td>
+                                                <td>Nombre</td>
+                                                <td>Valor</td>
+                                                <td>Acciones</td>
                                             </tr>
+                                            </thead>
+                                            <tbody>
                                             <c:forEach items="${Inventario}" var="inv">
-                                                <tr><td >${inv.codigoI}</td><td> ${inv.cantidadI}</td><td>${inv.nombreI}</td><td>${inv.valorI}</td></tr>
+                                                <tr>
+                                                    <td>${inv.codigoI}</td>
+                                                    <td>${inv.cantidadI}</td>
+                                                    <td>${inv.nombreI}</td>
+                                                    <td>${inv.valorI}</td>
+                                                    <td><a href="SInventario?i=update&d=${inv.idInventario}"><i class="fa fa-pencil"></i></a>&nbsp;&nbsp;&nbsp;
+                                                        <a href="SInventario?i=dalete&d=${inv.idInventario}"><i class="fa fa-trash"></i></a></td>
+                                                    
+                                                </tr>
                                             </c:forEach>
+                                            </tbody>
                                         </table>
-						<!--<p>500 Lorem Ipsum Dolor Sit,</p>
-						<p>22-56-2-9 Sit Amet, Lorem,</p>
-						<p>USA</p>
-				   		<p>Phone:(00) 222 666 444</p>
-				   		<p>Fax: (000) 000 00 00 0</p>
-				 	 	<p>Email: <span>info@mycompany.com</span></p>
-				   		<p>Follow on: <span>Facebook</span>, <span>Twitter</span></p>-->
 				   </div>
 				</div>
                                 </div>
@@ -115,4 +137,10 @@
 		       </div>
 		   </div>
       </body>
+<script type="text/javascript">
+ $(document).ready( function () {
+    $('#productos-grid').DataTable();
+} );	
+ 
+</script>
  </html>
